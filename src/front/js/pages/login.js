@@ -10,13 +10,13 @@ export const Login = () => {
     const history = useNavigate();
 
     
-    console.log("Este es tu token",store.token);
+    // console.log("Este es tu token",store.token);
     const handleClick = ()=>{
-        actions.login(email,password).then(()=>history("/"));
-
+         actions.login(email,password);//.then(()=>history("/"));
+         history("/");
     };
 
-    if (store.token && store.token !="" && store.token!=undefined) history("/");
+    // if (store.token && store.token !="" && store.token!=undefined) history("/");
 
 	return (
 		<div className="text-center mt-5">

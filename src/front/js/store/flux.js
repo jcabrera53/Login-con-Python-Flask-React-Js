@@ -22,10 +22,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 				getActions().changeColor(0, "green");
 			},
 
-			syncTokenFromSessionStorage: ()=>{
+			syncTokenFromSessionStore: ()=>{
 				const token = sessionStorage.getItem("token");
 				console.log("aplication just loaded, synching the session storage token")
-				if (token && token != "" && token != undefined)setStore({token: token});
+				if (token && token !="" && token !=undefined)setStore({token: token});
 			},
 
 			logout: ()=>{
@@ -50,7 +50,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			}
 
 			try {
-			const resp = await fetch('https://3001-4geeksacade-reactflaskh-ee8k4p1jk5h.ws-us83.gitpod.io/api/token', opts)
+			const resp = await fetch(process.env.BACKEND_URL + "/api/token", opts)
 			if (resp.status !== 200){
 				alert("Aquí ha habido algún error");
 				return false;
@@ -59,6 +59,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			const data = await resp.json();
 			console.log("this came from the backend", data);
 			sessionStorage.setItem("token", data.access_token);
+			setStore({token: data.access_token});
 			
 			return true;
 		}
